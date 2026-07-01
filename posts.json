@@ -1,5 +1,15 @@
 [
   {
+    "id": "dspark-deep-dive",
+    "title": "DSpark 深度解读：DeepSeek 如何用半自回归投机解码把 LLM 推理速度推到新极限",
+    "date": "2026-07-01",
+    "summary": "DSpark 同时改进了 speculative decoding 的两个核心环节：用半自回归架构抑制 suffix decay，用置信度调度验证动态裁剪验证长度。在 DeepSeek-V4 生产环境中，单用户生成速度提升 60-85%，严格 SLA 下聚合吞吐量提升 661%。",
+    "cover": "posts/dspark_deep_dive_cover.jpg",
+    "lang": "cn",
+    "file": "posts/dspark-deep-dive.md",
+    "tags": ["DeepSeek", "LLM推理", "Speculative Decoding", "推理加速"]
+  },
+  {
     "id": "validation-is-all-you-need-en",
     "title": "Validation Is All You Need: The Core Role of Validation in LLM Agent Landing",
     "date": "2026-07-01",
