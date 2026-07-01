@@ -16,6 +16,12 @@
     
     <!-- Marked.js for Markdown Parsing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js"></script>
+
+    <!-- KaTeX for Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+        onload="window.katexReady = true;"></script>
     
     <style>
         :root {
@@ -775,7 +781,39 @@
                 
                 // Remove initial heading if it exists in markdown to avoid double titles
                 const cleanMd = markdown.replace(/^#\s+.+?\n/, '');
-                mdContent.innerHTML = marked.parse(cleanMd);
+
+                // --- Math protection: replace $...$ and $$...$$ with placeholders
+                // so marked.js doesn't corrupt LaTeX syntax (e.g. escaping underscores)
+                const mathBlocks = [];
+                const protected1 = cleanMd
+                    // Display math $$...$$  (must come before inline)
+                    .replace(/\$\$([\s\S]+?)\$\$/g, (_, expr) => {
+                        mathBlocks.push({ type: 'display', expr });
+                        return `MATHBLOCK_${mathBlocks.length - 1}_END`;
+                    })
+                    // Inline math $...$
+                    .replace(/\$([^\$\n]+?)\$/g, (_, expr) => {
+                        mathBlocks.push({ type: 'inline', expr });
+                        return `MATHBLOCK_${mathBlocks.length - 1}_END`;
+                    });
+
+                // Parse markdown (math is safely hidden as placeholders)
+                let html = marked.parse(protected1);
+
+                // Restore math blocks as KaTeX-rendered HTML
+                html = html.replace(/MATHBLOCK_(\d+)_END/g, (_, i) => {
+                    const { type, expr } = mathBlocks[parseInt(i)];
+                    try {
+                        return katex.renderToString(expr.trim(), {
+                            displayMode: type === 'display',
+                            throwOnError: false
+                        });
+                    } catch (e) {
+                        return type === 'display' ? `$$${expr}$$` : `$${expr}$`;
+                    }
+                });
+
+                mdContent.innerHTML = html;
                 
                 // Highlight syntax
                 document.querySelectorAll('pre code').forEach((el) => {
