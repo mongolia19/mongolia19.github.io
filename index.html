@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validation Is All You Need: The Core Role of Validation in LLM Agent Landing</title>
-    <meta name="description" content="Why validation capability, not reasoning, is the primary bottleneck for deploying reliable LLM Agents in real-world production environments.">
+    <title>mongolia19's Space - Blog & Thoughts</title>
+    <meta name="description" content="Thoughts on Large Language Models, AI Agents, productivity, and developer setups.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,8 @@
             --font-title: 'Outfit', sans-serif;
             --font-body: 'Lora', serif;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-glow: linear-gradient(135deg, #0969da 0%, #00d2ff 100%);
         }
 
         [data-theme="dark"] {
@@ -40,7 +41,8 @@
             --border-color: #30363d;
             --code-bg: #1f242c;
             --meta-color: #8b949e;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+            --gradient-glow: linear-gradient(135deg, #58a6ff 0%, #00d2ff 100%);
         }
 
         * {
@@ -62,7 +64,7 @@
         }
 
         header {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             margin: 0 auto;
             padding: 40px 20px 20px 20px;
@@ -71,19 +73,47 @@
             align-items: center;
         }
 
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-glow);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: var(--font-title);
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(9, 105, 218, 0.2);
+        }
+
         .logo {
             font-family: var(--font-title);
-            font-weight: 700;
+            font-weight: 800;
             font-size: 1.5rem;
             color: var(--text-color);
-            text-decoration: none;
             letter-spacing: -0.5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .theme-toggle {
             background: none;
             border: 1px solid var(--border-color);
-            padding: 8px 12px;
+            padding: 8px 16px;
             border-radius: 20px;
             cursor: pointer;
             color: var(--text-color);
@@ -92,7 +122,7 @@
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             transition: var(--transition);
         }
 
@@ -106,15 +136,268 @@
         }
 
         main {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             margin: 0 auto;
-            padding: 0 20px 80px 20px;
+            padding: 20px 20px 80px 20px;
             flex-grow: 1;
+        }
+
+        /* Home View (List) Styling */
+        #list-view {
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .hero-section {
+            margin-bottom: 50px;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-title {
+            font-family: var(--font-title);
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: var(--gradient-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            font-size: 1.25rem;
+            color: var(--meta-color);
+            max-width: 600px;
+        }
+
+        /* Filter Controls */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-family: var(--font-title);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--meta-color);
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            color: var(--text-color);
+            border-color: var(--accent-color);
+            background-color: rgba(9, 105, 218, 0.05);
+        }
+
+        [data-theme="dark"] .filter-btn:hover, [data-theme="dark"] .filter-btn.active {
+            background-color: rgba(88, 166, 255, 0.05);
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 8px 16px 8px 36px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-family: var(--font-title);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: var(--meta-color);
+            stroke-width: 2;
+            pointer-events: none;
+        }
+
+        /* Post Grid */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 30px;
+        }
+
+        @media (max-width: 480px) {
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .post-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            animation: cardEntrance 0.5s ease-out;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        [data-theme="dark"] .post-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card-cover {
+            aspect-ratio: 16/9;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            font-family: var(--font-title);
+            font-size: 0.85rem;
+            color: var(--meta-color);
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-badge {
+            background-color: rgba(9, 105, 218, 0.1);
+            color: var(--accent-color);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        [data-theme="dark"] .card-badge {
+            background-color: rgba(88, 166, 255, 0.1);
+        }
+
+        .card-title {
+            font-family: var(--font-title);
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            color: var(--text-color);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-excerpt {
+            font-size: 0.95rem;
+            color: var(--meta-color);
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .card-tag {
+            background-color: var(--code-bg);
+            border: 1px solid var(--border-color);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: var(--font-title);
+            color: var(--meta-color);
+        }
+
+        /* Post Detail View Styling */
+        #post-view {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .back-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            font-family: var(--font-title);
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            border-color: var(--accent-color);
+            background-color: rgba(9, 105, 218, 0.05);
+            transform: translateX(-4px);
+        }
+
+        [data-theme="dark"] .back-btn:hover {
+            background-color: rgba(88, 166, 255, 0.05);
         }
 
         .post-header {
             margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .post-title {
@@ -125,6 +408,12 @@
             margin-bottom: 20px;
             letter-spacing: -1px;
             color: var(--text-color);
+        }
+
+        @media (max-width: 768px) {
+            .post-title {
+                font-size: 2.2rem;
+            }
         }
 
         .post-meta {
@@ -145,9 +434,10 @@
             border-radius: 16px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            margin-bottom: 40px;
+            margin: 0 auto 40px auto;
             border: 1px solid var(--border-color);
             aspect-ratio: 16/9;
+            max-width: 800px;
         }
 
         .cover-image {
@@ -157,10 +447,12 @@
             display: block;
         }
 
-        /* Markdown Content Styling */
+        /* Post Body Content Styling */
         .content {
             font-size: 1.15rem;
             color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .content h1, .content h2, .content h3, .content h4 {
@@ -259,16 +551,27 @@
 
         footer {
             border-top: 1px solid var(--border-color);
-            padding: 30px 20px;
+            padding: 40px 20px;
             text-align: center;
             font-family: var(--font-title);
             font-size: 0.9rem;
             color: var(--meta-color);
             background-color: var(--card-bg);
             transition: var(--transition);
+            margin-top: auto;
         }
 
-        /* Theme Toggle Icon Shapes */
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         .sun-icon, .moon-icon {
             display: inline-block;
             width: 16px;
@@ -279,251 +582,80 @@
 </head>
 <body>
     <header>
-        <a href="#" class="logo">mongolia19</a>
-        <button class="theme-toggle" id="theme-btn" aria-label="Toggle dark mode">
-            <!-- Moon Icon -->
-            <svg class="moon-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <span id="theme-text">Dark Mode</span>
-        </button>
+        <div class="logo-container" onclick="navigateHome()">
+            <div class="logo-icon">M</div>
+            <a href="#" class="logo" onclick="event.preventDefault()">mongolia19's space</a>
+        </div>
+        <div class="header-actions">
+            <button class="theme-toggle" id="theme-btn" aria-label="Toggle dark mode">
+                <span id="theme-text">Dark Mode</span>
+            </button>
+        </div>
     </header>
 
     <main>
-        <article>
-            <div class="post-header">
-                <h1 class="post-title">Validation Is All You Need: The Core Role of Validation in LLM Agent Landing</h1>
-                <div class="post-meta">
-                    <span class="post-author">By mongolia19</span>
-                    <span>•</span>
-                    <span class="post-date">July 1, 2026</span>
+        <!-- Home / Post List View -->
+        <section id="list-view">
+            <div class="hero-section">
+                <h1 class="hero-title">Thoughts & Logs</h1>
+                <p class="hero-sub">Deep dives into LLM Agents, system design, developer configurations, and productivity hacks.</p>
+            </div>
+
+            <div class="controls">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterLanguage('all', this)">All</button>
+                    <button class="filter-btn" onclick="filterLanguage('en', this)">English</button>
+                    <button class="filter-btn" onclick="filterLanguage('cn', this)">中文</button>
+                </div>
+                <div class="search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" class="search-input" id="search-bar" placeholder="Search articles..." oninput="handleSearch()">
                 </div>
             </div>
 
-            <div class="cover-container">
-                <img src="cover.jpg" alt="Validation is all you need blog cover" class="cover-image">
+            <div class="posts-grid" id="posts-container">
+                <!-- Dynamically populated cards -->
+            </div>
+        </section>
+
+        <!-- Post Detail View -->
+        <section id="post-view">
+            <button class="back-btn" onclick="navigateHome()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to Articles
+            </button>
+            
+            <div class="post-header">
+                <h1 class="post-title" id="post-title">Loading post title...</h1>
+                <div class="post-meta">
+                    <span class="post-author">By mongolia19</span>
+                    <span>•</span>
+                    <span class="post-date" id="post-date">July 1, 2026</span>
+                </div>
+            </div>
+
+            <div class="cover-container" id="post-cover-wrapper">
+                <img src="" alt="Blog post cover" class="cover-image" id="post-cover">
             </div>
 
             <div class="content" id="markdown-content">
-                <!-- Rendered Markdown will go here -->
+                <!-- Rendered Markdown content -->
             </div>
-        </article>
+        </section>
     </main>
 
     <footer>
         <p>&copy; 2026 mongolia19. Built with passion & AI.</p>
     </footer>
 
-    <!-- Embedded Markdown Content -->
-    <script type="text/markdown" id="markdown-raw"># Validation Is All You Need: The Core Role of Validation in LLM Agent Landing
-
-Large Language Model (LLM) Agents have transitioned from research papers to production environments. However, as Agents are deployed in real-world business scenarios, a recurring issue has surfaced: **the primary bottleneck of Agents is often not their reasoning capability, but their validation capability.**
-
-An Agent can plan perfect steps, call accurate tools, and generate beautiful code, but if it cannot validate whether its own output is correct—it remains a system with a high probability of failure.
-
-### Why Validation is More Important Than Reasoning
-
-Reasoning determines how much an Agent can do; validation determines how much it does correctly.
-
-In production environments, users do not care how elegant an Agent's reasoning chain is. They only care whether the final result is correct. An Agent with strong reasoning but weak validation will confidently output incorrect answers. Conversely, an Agent with moderate reasoning but strong validation will notice it might be wrong and self-correct. The latter is obviously far more reliable.
-
-From a mathematical perspective, an Agent's final accuracy can be approximated as:
-
-```
-Accuracy ≈ Reasoning Capability × Validation Capability
-```
-
-When the validation capability approaches 0, no matter how great the reasoning capability is, the final accuracy is 0. This explains why many Agent projects perform far below lab levels in production—labs only test reasoning, while production environments test end-to-end correctness.
-
-### Three Levels of Agent Validation
-
-1. **Process Verification**: Verifying whether the intermediate results are correct after each action. For example, after calling a tool to fetch data, the Agent verifies if the data format meets expectations.
-
-2. **Result Verification**: Verifying whether the conclusion answers the user's question before the final output. For example, verifying whether generated code passes tests.
-
-3. **Self-Reflection**: The Agent reviews the entire decision-making process to find potential logical errors or omissions. This is the most advanced form of validation.
-
----
-
-## Methods of Agent Validation in Literature
-
-Academia has proposed a plethora of methods to improve Agent validation accuracy over the past two years. Below are the most central categories.
-
-### 1. Self-Consistency
-
-**Core Idea**: Have the same Agent generate multiple reasoning paths for the same question, and select the most consistent answer via majority voting.
-
-**Key Papers**:
-- Wang et al., *Self-Consistency Improves Chain of Thought Reasoning in Language Models* (2022) — Combining majority voting with Chain-of-Thought (CoT), improving accuracy by 14-44% on mathematical reasoning tasks.
-- Yao et al., *Agent B: Self-Consistency Verification and Correction with Multiple Agents* (2024) — Extending self-consistency from a single Agent to multi-Agent debate, where each Agent reasons independently and validates each other.
-
-**Key Finding**: Self-consistency is not simply "sampling multiple times and taking the majority." Voting is only meaningful when the reasoning paths are sufficiently diverse (i.e., using different CoT prompts). The "consistency" obtained by repeatedly invoking the same prompt 10 times is superficial.
-
-### 2. Chain of Verification (CoVE)
-
-**Core Idea**: Perform validation in four steps—(1) Generate initial response; (2) Create a verification plan to rule out distracting information; (3) Execute the plan to generate independent secondary answers; (4) Compare the responses and resolve discrepancies.
-
-**Key Papers**:
-- Kuhn et al., *Chain-of-Verification Reduces Hallucination in Large Language Models* (FAIR, 2023) — Reduces hallucination rates by 14-31% across multiple benchmarks.
-
-**Key Finding**: The power of CoVE lies not in "generating one more time," but in the step of "formulating a verification plan." Without an explicit verification plan, the second generation merely repeats the first mistake.
-
-### 3. Tree of Thoughts (ToT)
-
-**Core Idea**: Model the reasoning process as a tree structure, perform self-evaluation at each node, and select the most promising branches to expand.
-
-**Key Papers**:
-- Yao et al., *Tree of Thoughts: Deliberate Problem Solving with Large Language Models* (2023) — Significantly outperforms CoT on Game of 24 and Creative Writing tasks.
-
-**Key Finding**: The evaluation function of ToT is the key to success. If the evaluation function is not discriminative (unable to distinguish good paths from bad ones), the search becomes meaningless. The paper suggests using "self-assessed solvability" as the evaluation standard, letting the model judge whether an intermediate state is worth further exploration.
-
-### 4. Decomposed Prompting (DPR)
-
-**Core Idea**: Decompose a complex problem into multiple subtasks, handle each subtask with an independent prompt, and aggregate the final results. The output of each subtask can be verified independently.
-
-**Key Papers**:
-- Wang et al., *Decomposed Prompting: A Modular Approach for Improving Large Language Model Capabilities* (Microsoft, 2022) — Modulates tasks to focus on individual sub-capabilities, improving overall accuracy.
-
-**Key Finding**: The essence of DPR is transforming validation from a "black-box global validation" into a "white-box segment-by-segment validation." When each subtask is small enough, the difficulty of verifying its correctness drops exponentially.
-
-### 5. Self-Refine and Self-Correction
-
-**Core Idea**: Generate initial results first, then improve them iteratively through a feedback loop.
-
-**Key Papers**:
-- Madaan et al., *Self-Refine: Iterative Refinement with Self-Feedback* (2023) — Letting the model critique and improve its own generated code/text, significantly enhancing performance after 2-3 iterations.
-- Liu et al., *Self-Correction: Self-Supervised Debugging for LLMs* (2024) — Systematically studies the boundary of self-correction effectiveness.
-
-**Key Finding**: The effect of Self-Refine depends on the "feedback quality." If the model commits a factual error in the first step, subsequent refinements can rarely correct it. Therefore, **validating first, then improving** is more effective than **improving first, then validating**.
-
-### 6. LLM-as-a-Judge
-
-**Core Idea**: Use one LLM as a judge to evaluate the output quality of another LLM.
-
-**Key Papers**:
-- Zheng et al., *Judging LLM-as-a-Judge with MT-Bench* (2023) — Systematically studies bias sources and mitigation methods for LLM evaluations.
-- Kim et al., *ShareGPT4All: Training LLMs with Trajectory Rewards* (2023) — Translates validation signals into training data to close the loop.
-
-**Key Finding**: LLM-as-a-Judge exhibits position bias, verbosity bias (favoring longer responses), and consistency bias. Zheng et al. proposed adversarial pairwise evaluation (evaluating A/B and B/A once each and averaging) to mitigate these issues.
-
-### 7. Multi-Agent Debate
-
-**Core Idea**: Multiple Agent roles debate with each other and converge to correct answers through adversarial validation.
-
-**Key Papers**:
-- Li et al., *Can LLMs Role-Play? Multi-Agent Debate in Cooperative Game* (2023) — Showcases the benefits of multi-Agent debate in reasoning tasks.
-- Agent B (Yao et al., 2024) — Combines multi-Agent debate with self-consistency, where each Agent independently validates the output of other Agents.
-
-**Key Finding**: Multi-Agent debate is not simply "more is better." Validation is most effective when Agents are assigned distinct roles (e.g., "skeptic," "defender," "judge"). Homogenous multi-Agent systems often produce an "echo chamber effect."
-
----
-
-## Validation Practices in Daily Development
-
-Literature provides the theoretical foundation, but landing requires engineering practice. Here are some proven practical methods:
-
-### 1. Structured Validation Pipeline
-
-Do not rely on a single output for decisions. Build a multi-stage validation pipeline:
-
-```
-Generation → Syntax Validation → Logic Validation → Fact Verification → Human Review
-```
-
-Each stage must have clear pass/fail criteria. Only outputs that pass all stages can proceed to the next step.
-
-### 2. Immediate Post-Tool-Call Validation
-
-After an Agent invokes external tools (APIs, databases, search engines), it must validate the returned results immediately:
-
-- **Format Verification**: Is the JSON valid? Are all fields complete?
-- **Range Verification**: Are the numeric values within a reasonable range?
-- **Consistency Verification**: Does it contradict previous invocation results?
-
-For instance, after calling a search API to retrieve data, the Agent should verify if the volume of data returned aligns with expectations and if the timestamp is reasonable.
-
-### 3. Use "Validation Prompts" Instead of "Generation Prompts"
-
-Separate generation and validation into different prompts:
-
-```python
-# Generation prompt
-generate_prompt = "Please answer the following question: {question}"
-
-# Validation prompt (independent)
-verify_prompt = """Please verify the correctness of the following answer.
-Check from the following perspectives:
-1. Factual accuracy
-2. Logical consistency
-3. Whether it answers the original question
-Answer: {answer}"""
-```
-
-Key Principle: **The validator should not know the contents of the original prompt** to avoid confirmation bias.
-
-### 4. Cross-Validation
-
-Use multiple independent Agents or models for cross-validation on critical tasks:
-
-- Ask GPT-4o and Claude the same question and compare consistency.
-- Run the same Agent multiple times with different temperatures to observe the output distribution.
-- If two independent sources match, the confidence level increases significantly.
-
-### 5. Automated Test-Driven Development
-
-For code-generation Agents, the standard of validation is "whether it passes tests." Build automated test suites:
-
-- Unit Tests: Verify the correctness of each function/method.
-- Integration Tests: Verify cooperation between modules.
-- Regression Tests: Ensure changes do not break existing functionality.
-
-### 6. Human-in-the-Loop (HITL)
-
-For high-risk scenarios, always preserve human review loops:
-
-- **Active Learning**: Feed the results of human review back to the Agent for continuous improvement.
-- **Confidence Threshold**: Automatically transfer to human review when the Agent's self-assessed confidence falls below a threshold.
-- **Random Audit**: Randomly audit a percentage of outputs to monitor overall quality.
-
-### 7. Logging and Traceability
-
-Validation is predicated on traceability. Ensure every step of operation has complete logs:
-
-- Input/output pairs.
-- Invoked tools and arguments.
-- Intermediate reasoning steps.
-- Validation decisions and rationales.
-
-This not only helps post-mortem analysis but also serves as the basis for continuous improvement.
-
----
-
-## Conclusion
-
-Validation is not an "add-on" feature of Agents; it is the "core capability" of Agents.
-
-An Agent without validation is like a sports car without brakes—the faster it goes, the more dangerous it is. On the contrary, an Agent with strong validation capabilities, even with limited reasoning, can achieve highly reliable output quality through iterative checks and self-correction.
-
-In the process of Agent landing, instead of chasing more complex reasoning architectures, solidify the validation foundation first. Because ultimately, users won't applaud your reasoning chain—they will only pay for correct results.
-
-Validation is all you need.
-
----
-
-## References
-
-- Wang et al., *Self-Consistency Improves Chain of Thought Reasoning in Language Models*, ICLR 2023
-- Kuhn et al., *Chain-of-Verification Reduces Hallucination in Large Language Models*, FAIR, 2023
-- Yao et al., *Tree of Thoughts: Deliberate Problem Solving with Large Language Models*, NeurIPS 2023
-- Wang et al., *Decomposed Prompting: A Modular Approach for Improving Large Language Model Capabilities*, Microsoft, 2022
-- Madaan et al., *Self-Refine: Iterative Refinement with Self-Feedback*, NeurIPS 2023
-- Zheng et al., *Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena*, NeurIPS 2023
-- Yao et al., *Agent B: Self-Consistency Verification and Correction with Multiple Agents*, 2024
-- Liu et al., *Self-Correction: Self-Supervised Debugging for LLMs*, 2024
-- Li et al., *Can LLMs Role-Play? Multi-Agent Debate in Cooperative Game*, 2023</script>
-
     <script>
-        // Set up marked parser option
+        // Set up marked options
         marked.setOptions({
             highlight: function(code, lang) {
                 const language = hljs.getLanguage(lang) ? lang : 'plaintext';
@@ -532,24 +664,160 @@ Validation is all you need.
             langPrefix: 'hljs language-'
         });
 
-        // Load and parse markdown
-        const rawMd = document.getElementById('markdown-raw').text;
-        
-        // Remove title from rendering since it is already in HTML header
-        const cleanMd = rawMd.replace(/^#\s+.+?\n/, '');
-        
-        document.getElementById('markdown-content').innerHTML = marked.parse(cleanMd);
-        
-        // Initialize highlight.js on pre code
-        document.querySelectorAll('pre code').forEach((el) => {
-            hljs.highlightElement(el);
+        let allPosts = [];
+        let activeLang = 'all';
+        let searchQuery = '';
+
+        // Initial Load
+        window.addEventListener('DOMContentLoaded', async () => {
+            await fetchPosts();
+            handleRouting();
         });
+
+        // Listen for history back/forward
+        window.addEventListener('popstate', handleRouting);
+
+        async function fetchPosts() {
+            try {
+                const res = await fetch('posts.json');
+                allPosts = await res.json();
+            } catch (err) {
+                console.error("Error loading posts.json:", err);
+                document.getElementById('posts-container').innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--meta-color);">Error loading articles database.</p>`;
+            }
+        }
+
+        function handleRouting() {
+            const params = new URLSearchParams(window.location.search);
+            const postId = params.get('post');
+            
+            if (postId) {
+                renderPost(postId);
+            } else {
+                renderList();
+            }
+        }
+
+        function renderList() {
+            document.getElementById('post-view').style.display = 'none';
+            document.getElementById('list-view').style.display = 'block';
+            document.title = "mongolia19's Space - Blog & Thoughts";
+            
+            const container = document.getElementById('posts-container');
+            container.innerHTML = '';
+            
+            const filtered = allPosts.filter(post => {
+                const matchesLang = activeLang === 'all' || post.lang === activeLang;
+                const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      post.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                      (post.tags && post.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())));
+                return matchesLang && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--meta-color); padding: 40px;">No articles found matching the filters.</p>`;
+                return;
+            }
+
+            filtered.forEach(post => {
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.onclick = () => viewPost(post.id);
+                
+                const tagsHtml = post.tags ? post.tags.map(t => `<span class="card-tag">${t}</span>`).join('') : '';
+                
+                card.innerHTML = `
+                    <img src="${post.cover}" alt="${post.title}" class="card-cover">
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <span>${post.date}</span>
+                            <span class="card-badge">${post.lang === 'cn' ? '中文' : 'English'}</span>
+                        </div>
+                        <h2 class="card-title">${post.title}</h2>
+                        <p class="card-excerpt">${post.summary}</p>
+                        <div class="card-tags">${tagsHtml}</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function renderPost(id) {
+            document.getElementById('list-view').style.display = 'none';
+            document.getElementById('post-view').style.display = 'block';
+            
+            const post = allPosts.find(p => p.id === id);
+            if (!post) {
+                document.getElementById('post-title').innerText = "Post Not Found";
+                document.getElementById('markdown-content').innerHTML = "<p>The article you are looking for does not exist.</p>";
+                document.getElementById('post-cover-wrapper').style.display = 'none';
+                return;
+            }
+
+            document.title = `${post.title} | mongolia19`;
+            document.getElementById('post-title').innerText = post.title;
+            document.getElementById('post-date').innerText = post.date;
+            
+            if (post.cover) {
+                document.getElementById('post-cover').src = post.cover;
+                document.getElementById('post-cover-wrapper').style.display = 'block';
+            } else {
+                document.getElementById('post-cover-wrapper').style.display = 'none';
+            }
+
+            const mdContent = document.getElementById('markdown-content');
+            mdContent.innerHTML = "<p style='color: var(--meta-color);'>Loading article content...</p>";
+
+            try {
+                const res = await fetch(post.file);
+                if (!res.ok) throw new Error("File not found");
+                const markdown = await res.text();
+                
+                // Remove initial heading if it exists in markdown to avoid double titles
+                const cleanMd = markdown.replace(/^#\s+.+?\n/, '');
+                mdContent.innerHTML = marked.parse(cleanMd);
+                
+                // Highlight syntax
+                document.querySelectorAll('pre code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (err) {
+                console.error("Error fetching markdown file:", err);
+                mdContent.innerHTML = `<p style="color: red;">Failed to load the article content. Check if the file is correctly placed in your repository.</p>`;
+            }
+        }
+
+        // Navigation actions
+        function viewPost(id) {
+            window.history.pushState({}, '', `?post=${id}`);
+            handleRouting();
+        }
+
+        function navigateHome() {
+            window.history.pushState({}, '', window.location.pathname);
+            handleRouting();
+        }
+
+        // Search & Filter controls
+        function filterLanguage(lang, btn) {
+            activeLang = lang;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderList();
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('search-bar').value;
+            renderList();
+        }
 
         // Theme Toggle Logic
         const themeBtn = document.getElementById('theme-btn');
         const themeText = document.getElementById('theme-text');
         
-        // Sun Icon SVG string
         const sunSvg = `
             <svg class="sun-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="5"></circle>
@@ -564,7 +832,6 @@ Validation is all you need.
             </svg>
         `;
 
-        // Moon Icon SVG string
         const moonSvg = `
             <svg class="moon-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -581,7 +848,6 @@ Validation is all you need.
             }
         }
 
-        // Initialize from localstorage or media query
         const savedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         
@@ -593,7 +859,6 @@ Validation is all you need.
             setTheme('light');
         }
 
-        // Click Handler
         themeBtn.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             setTheme(currentTheme === 'dark' ? 'light' : 'dark');

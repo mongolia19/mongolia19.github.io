@@ -1,0 +1,32 @@
+[
+  {
+    "id": "validation-is-all-you-need-en",
+    "title": "Validation Is All You Need: The Core Role of Validation in LLM Agent Landing",
+    "date": "2026-07-01",
+    "summary": "Why validation capability, not reasoning, is the primary bottleneck for deploying reliable LLM Agents in real-world production environments.",
+    "cover": "posts/validation_cover.jpg",
+    "lang": "en",
+    "file": "posts/validation-is-all-you-need-en.md",
+    "tags": ["LLM", "Agent", "Validation"]
+  },
+  {
+    "id": "validation-is-all-you-need-cn",
+    "title": "Validation Is All You Need：验证在 Agent 落地中的核心地位",
+    "date": "2026-07-01",
+    "summary": "大语言模型 Agent 已经从论文走向生产环境。然而，一个反复出现的问题浮出水面：Agent 的核心瓶颈往往不是推理能力，而是验证能力。",
+    "cover": "posts/validation_cover.jpg",
+    "lang": "cn",
+    "file": "posts/validation-is-all-you-need.md",
+    "tags": ["大模型", "Agent", "验证机制"]
+  },
+  {
+    "id": "ai-subscription-strategy-2026",
+    "title": "花国产套餐钱用进口AI套餐：怎样配置AI订阅套餐才划算？",
+    "date": "2026-06-30",
+    "summary": "随着 AI 工具在日常编码、个人工作、写作以及 Agent 自动化工作流中的深度渗透，如何合理配置 AI 订阅计划和 Token 消耗，成为了每个数字工作者的必修课。",
+    "cover": "posts/ai_subscription_cover.jpg",
+    "lang": "cn",
+    "file": "posts/ai-subscription-strategy-2026.md",
+    "tags": ["AI订阅", "高性价比", "工作流优化"]
+  }
+]
