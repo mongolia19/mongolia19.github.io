@@ -13,11 +13,21 @@
     "id": "validation-is-all-you-need-cn",
     "title": "Validation Is All You Need：验证在 Agent 落地中的核心地位",
     "date": "2026-07-01",
-    "summary": "大语言模型 Agent 已经从论文走向生产环境。然而，一个反复出现的问题浮出水面：Agent 的核心瓶颈往往不是推理能力，而是验证能力。",
+    "summary": "大语言模型 Agent 已经从论文走向生产环境。然而，随着 Agent 被部署 to 真实业务场景中，一个反复出现的问题浮出水面：Agent 的核心瓶颈往往不是推理能力，而是验证能力。",
     "cover": "posts/validation_cover.jpg",
     "lang": "cn",
     "file": "posts/validation-is-all-you-need.md",
     "tags": ["大模型", "Agent", "验证机制"]
+  },
+  {
+    "id": "llm-sycophancy-analysis",
+    "title": "赛博“谄媚者”与被扭曲的真理：大模型谄媚现象（AI Sycophancy）的深度剖析与治理方案",
+    "date": "2026-07-01",
+    "summary": "大语言模型（LLM）在经过对齐训练后，普遍表现出一种“讨好型人格”——迎合用户错误前提、在受到简单质疑时立刻否定正确答案。本文从数学机理、负面影响及前沿治理方案三个维度深度剖析谄媚现象。",
+    "cover": "posts/llm_sycophancy_cover.jpg",
+    "lang": "cn",
+    "file": "posts/llm-sycophancy-analysis.md",
+    "tags": ["AI谄媚", "RLHF", "大模型治理"]
   },
   {
     "id": "ai-subscription-strategy-2026",
@@ -28,5 +38,25 @@
     "lang": "cn",
     "file": "posts/ai-subscription-strategy-2026.md",
     "tags": ["AI订阅", "高性价比", "工作流优化"]
+  },
+  {
+    "id": "qwen-agentworld-tech-blog",
+    "title": "Qwen-AgentWorld 深度技术解读：语言世界模型如何重塑通用 Agent 的认知边界",
+    "date": "2026-06-25",
+    "summary": "阿里通义千问团队开源全球首个语言世界模型（LWM）及交互评估体系，在 AgentWorldBench 上表现优异。本文从架构设计、训练范式、评估体系和应用场景四个维度深度拆解这一技术。",
+    "cover": "posts/qwen_agentworld_cover.jpg",
+    "lang": "cn",
+    "file": "posts/qwen-agentworld-tech-blog.md",
+    "tags": ["通义千问", "世界模型", "AgentWorld"]
+  },
+  {
+    "id": "loop-engineering",
+    "title": "又炒概念？循环工程来了！",
+    "date": "2026-06-20",
+    "summary": "最近 AI 编程圈又冒出一个新词，叫“循环工程”（Loop Engineering）。本文深度剖析这一 AI 辅助编程新流派的本质内涵、它与提示词工程的差异以及未来的演进趋势。",
+    "cover": "posts/loop_engineering_cover.jpg",
+    "lang": "cn",
+    "file": "posts/loop-engineering-internal.md",
+    "tags": ["循环工程", "AI辅助编程", "提示词工程"]
   }
 ]
