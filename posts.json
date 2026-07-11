@@ -1,5 +1,15 @@
 [
   {
+    "id": "vercel-eve-agent-framework",
+    "title": "Vercel eve：把 Agent 当成一个目录——2026 年最值得关注的开源 Agent 框架",
+    "date": "2026-07-11",
+    "summary": "Vercel 在 Ship London 2026 上发布了开源 Agent 框架 eve，用 filesystem-first 的范式重新定义 Agent 开发——一个 Agent 就是一组文件，部署就是 vercel deploy。本文从技术架构、框架对比、实战演示三个角度深度拆解 eve，并给出选型建议。",
+    "cover": "posts/vercel_eve_cover.jpg",
+    "lang": "cn",
+    "file": "posts/vercel-eve-agent-framework.md",
+    "tags": ["Vercel", "Agent框架", "eve", "AI Agent", "Ship 2026"]
+  },
+  {
     "id": "dspark-deep-dive",
     "title": "DSpark 深度解读：DeepSeek 如何用半自回归投机解码把 LLM 推理速度推到新极限",
     "date": "2026-07-01",
