@@ -1,5 +1,15 @@
 [
   {
+    "id": "football-agent-prediction-blog",
+    "title": "从 1-4 溃败到精准双绝平：如何用 AI Agent 预测球赛？（我们踩坑 7 次换来的体育精算方法论）",
+    "date": "2026-07-13",
+    "summary": "足球是绿茵场的混沌系统。在经历了一次次被冷门和绝平打脸后，我们对 AI 预测模型进行了 7 次架构重构，从底层的“公式参数推演”彻底转向“同类型模板匹配法”。并在最近的世界杯淘汰赛中连续精准预言了英格兰 vs 挪威、阿根廷 vs 瑞士常规时间的 1-1 比分和 2 个总进球。",
+    "cover": "posts/football_agent_prediction_cover.jpg",
+    "lang": "cn",
+    "file": "posts/football-agent-prediction-blog.md",
+    "tags": ["AI Agent", "体育精算", "博弈优化", "第一性原则"]
+  },
+  {
     "id": "vercel-eve-agent-framework",
     "title": "Vercel eve：把 Agent 当成一个目录——2026 年最值得关注的开源 Agent 框架",
     "date": "2026-07-11",
