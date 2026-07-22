@@ -1,5 +1,15 @@
 [
   {
+    "id": "kimi-k3-tech-deep-dive",
+    "title": "把 100 万 token 显存砍掉四分之三，聊聊 Kimi K3 的 Delta Attention 和工程美学",
+    "date": "2026-07-22",
+    "summary": "最近这两天，大模型圈子被 Kimi K3 那个 2.8 万亿参数、896个专家的巨无霸 MoE 给刷屏了。最让人激动的根本不是参数多大，而是他们底层的注意力架构：Kimi Delta Attention (KDA) 混合注意力架构，在 100 万 token 下把 KV 缓存砍掉百分之七十五，解码吞吐量提升了六倍。",
+    "cover": "posts/kimi_k3_cover.jpg",
+    "lang": "cn",
+    "file": "posts/kimi-k3-tech-deep-dive.md",
+    "tags": ["Kimi K3", "Delta Attention", "KV Cache", "线性注意力", "工程美学"]
+  },
+  {
     "id": "football-agent-prediction-blog",
     "title": "从 1-4 溃败到精准双绝平：如何用 AI Agent 预测球赛？（我们踩坑 7 次换来的体育精算方法论）",
     "date": "2026-07-13",
