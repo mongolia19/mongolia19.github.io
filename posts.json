@@ -1,5 +1,18 @@
 [
   {
+    "id": "kimi_k3_tech_deep_dive",
+    "title": "把 100 万 token 显存砍掉四分之三，聊聊 Kimi K3 的 Delta Attention 和工程美学",
+    "date": "2026-07-24",
+    "summary": "最近这两天，大模型圈子被 Kimi K3 那个 2.8 万亿参数、896个专家的巨无霸 MoE 给刷屏了。 大家都在算这得烧多少显卡，算力有多恐怖。 但作为一个天天在服务器端跟显存带宽、算力调度死磕的工程架构师，我盯着技术报告看了一通，最让我激动的根本不是参数多大，而是他们底层的注意力架构。 Kimi 官方披露的信息里，提到了他们上线的一个叫 Kimi Delta Attention，也就是 KD",
+    "cover": "posts/kimi_k3_tech_deep_dive_cover.jpg",
+    "lang": "cn",
+    "file": "posts/kimi_k3_tech_deep_dive.md",
+    "tags": [
+      "AI",
+      "技术分享"
+    ]
+  },
+  {
     "id": "kimi-k3-tech-deep-dive",
     "title": "把 100 万 token 显存砍掉四分之三，聊聊 Kimi K3 的 Delta Attention 和工程美学",
     "date": "2026-07-22",
@@ -7,7 +20,13 @@
     "cover": "posts/kimi_k3_cover.jpg",
     "lang": "cn",
     "file": "posts/kimi-k3-tech-deep-dive.md",
-    "tags": ["Kimi K3", "Delta Attention", "KV Cache", "线性注意力", "工程美学"]
+    "tags": [
+      "Kimi K3",
+      "Delta Attention",
+      "KV Cache",
+      "线性注意力",
+      "工程美学"
+    ]
   },
   {
     "id": "football-agent-prediction-blog",
@@ -17,7 +36,12 @@
     "cover": "posts/football_agent_prediction_cover.jpg",
     "lang": "cn",
     "file": "posts/football-agent-prediction-blog.md",
-    "tags": ["AI Agent", "体育精算", "博弈优化", "第一性原则"]
+    "tags": [
+      "AI Agent",
+      "体育精算",
+      "博弈优化",
+      "第一性原则"
+    ]
   },
   {
     "id": "vercel-eve-agent-framework",
@@ -27,7 +51,13 @@
     "cover": "posts/vercel_eve_cover.jpg",
     "lang": "cn",
     "file": "posts/vercel-eve-agent-framework.md",
-    "tags": ["Vercel", "Agent框架", "eve", "AI Agent", "Ship 2026"]
+    "tags": [
+      "Vercel",
+      "Agent框架",
+      "eve",
+      "AI Agent",
+      "Ship 2026"
+    ]
   },
   {
     "id": "dspark-deep-dive",
@@ -37,7 +67,12 @@
     "cover": "posts/dspark_deep_dive_cover.jpg",
     "lang": "cn",
     "file": "posts/dspark-deep-dive.md",
-    "tags": ["DeepSeek", "LLM推理", "Speculative Decoding", "推理加速"]
+    "tags": [
+      "DeepSeek",
+      "LLM推理",
+      "Speculative Decoding",
+      "推理加速"
+    ]
   },
   {
     "id": "validation-is-all-you-need-en",
@@ -47,7 +82,11 @@
     "cover": "posts/validation_cover.jpg",
     "lang": "en",
     "file": "posts/validation-is-all-you-need-en.md",
-    "tags": ["LLM", "Agent", "Validation"]
+    "tags": [
+      "LLM",
+      "Agent",
+      "Validation"
+    ]
   },
   {
     "id": "validation-is-all-you-need-cn",
@@ -57,7 +96,11 @@
     "cover": "posts/validation_cover.jpg",
     "lang": "cn",
     "file": "posts/validation-is-all-you-need.md",
-    "tags": ["大模型", "Agent", "验证机制"]
+    "tags": [
+      "大模型",
+      "Agent",
+      "验证机制"
+    ]
   },
   {
     "id": "llm-sycophancy-analysis",
@@ -67,7 +110,11 @@
     "cover": "posts/llm_sycophancy_cover.jpg",
     "lang": "cn",
     "file": "posts/llm-sycophancy-analysis.md",
-    "tags": ["AI谄媚", "RLHF", "大模型治理"]
+    "tags": [
+      "AI谄媚",
+      "RLHF",
+      "大模型治理"
+    ]
   },
   {
     "id": "ai-subscription-strategy-2026",
@@ -77,7 +124,11 @@
     "cover": "posts/ai_subscription_cover.jpg",
     "lang": "cn",
     "file": "posts/ai-subscription-strategy-2026.md",
-    "tags": ["AI订阅", "高性价比", "工作流优化"]
+    "tags": [
+      "AI订阅",
+      "高性价比",
+      "工作流优化"
+    ]
   },
   {
     "id": "qwen-agentworld-tech-blog",
@@ -87,7 +138,11 @@
     "cover": "posts/qwen_agentworld_cover.jpg",
     "lang": "cn",
     "file": "posts/qwen-agentworld-tech-blog.md",
-    "tags": ["通义千问", "世界模型", "AgentWorld"]
+    "tags": [
+      "通义千问",
+      "世界模型",
+      "AgentWorld"
+    ]
   },
   {
     "id": "loop-engineering",
@@ -97,6 +152,10 @@
     "cover": "posts/loop_engineering_cover.jpg",
     "lang": "cn",
     "file": "posts/loop-engineering-internal.md",
-    "tags": ["循环工程", "AI辅助编程", "提示词工程"]
+    "tags": [
+      "循环工程",
+      "AI辅助编程",
+      "提示词工程"
+    ]
   }
 ]
