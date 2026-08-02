@@ -1,5 +1,21 @@
 [
   {
+    "id": "graph_engineering",
+    "title": "Graph Engineering:当 AI 工程师开始像数据工程师一样构建知识图谱",
+    "date": "2026-08-03",
+    "summary": "你可能已经熟悉了 Prompt Engineering、Context Engineering，那么 **Graph Engineering** 是什么？为什么大厂和前沿团队都在悄悄把它列为 2025-2026 年最值得投入的工程范式之一？本文结合一份 YouTube 上的英文科普视频，并补充 GraphRAG、LangGraph、Microsoft GraphRAG 等一线实战资料，系统梳理这个",
+    "cover": "posts/graph_engineering_cover.jpg",
+    "lang": "cn",
+    "file": "posts/graph_engineering.md",
+    "tags": [
+      "Graph Engineering",
+      "LLM",
+      "知识图谱",
+      "RAG",
+      "GraphRAG"
+    ]
+  },
+  {
     "id": "kimi_k3_tech_deep_dive",
     "title": "把 100 万 token 显存砍掉四分之三，聊聊 Kimi K3 的 Delta Attention 和工程美学",
     "date": "2026-07-24",
