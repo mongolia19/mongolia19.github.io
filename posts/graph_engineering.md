@@ -1,284 +1,206 @@
-# Graph Engineering:当 AI 工程师开始像数据工程师一样构建知识图谱
+# Graph Engineering:为 Agent 画一张"工作路线图"
 
 > **作者**：卡兹克  
-> **标签**：`Graph Engineering` | `LLM` | `知识图谱` | `RAG` | `GraphRAG`
+> **标签**：`Graph Engineering` | `LLM` | `Agent` | `LangGraph` | `Multi-Agent`
 
 ---
 
-> 你可能已经熟悉了 Prompt Engineering、Context Engineering，那么 **Graph Engineering** 是什么？为什么大厂和前沿团队都在悄悄把它列为 2025-2026 年最值得投入的工程范式之一？本文结合一份 YouTube 上的英文科普视频，并补充 GraphRAG、LangGraph、Microsoft GraphRAG 等一线实战资料，系统梳理这个新概念的定义、动机、技术栈、典型流水线以及落地挑战。
+> 当你的 Agent 不再是一个循环,而是一组彼此交接工作的节点,**Graph Engineering** 就该上场了。本文基于 [@sairahul1](https://twitter.com/sairahul1) 的范式分层( Prompt → Context → Harness → Loop → Graph)和 [aibuilderclub 2026 年 7 月的实战指南](https://www.aibuilderclub.com/blog/graph-engineering-guide-2026),系统讲清楚这个最近开始流行的新概念到底是什么、不是什么、什么时候该用、怎么动手。
 
 ---
 
-## 一、从 Prompt 到 Graph：LLM 工程的演进轴
+## 一、一句话定义
 
-要理解 Graph Engineering，最好先把它放在过去三年 LLM 工程范式演进的轴线上看：
+> **Graph engineering is the practice of designing the graph your agents run in: which specialized nodes exist, which edges route work between them, and what shared state travels along those edges.**
+>
+> (Graph Engineering 是一种"为 Agent 设计运行图"的实践 —— 你设计哪些专门节点存在、哪些边在节点之间路由工作、什么共享状态沿边流动。)
 
-| 范式 | 关注对象 | 核心动作 | 典型产物 |
+它的根本目标,是把"多个 agent / 多步骤协作"这件事,**像画组织架构图一样**画清楚。
+
+---
+
+## 二、和一个常见误会的区分:Graph Engineering ≠ GraphRAG
+
+读到"Graph Engineering"四个字,很多人(包括半年前的我)第一反应是把它和 Microsoft GraphRAG、Neo4j、知识图谱、LLMGraphTransformer 那一套画等号。这是错的。
+
+原文说得非常直白:
+
+> **Those are about modeling _data_ as entities and relations for retrieval. Graph engineering is about modeling _execution_ — which agent runs next and what state it gets.**
+>
+> (GraphRAG/知识图谱那一套把"数据"建模成实体和关系用于检索;Graph Engineering 把"执行"建模成节点和边 —— 下一个跑哪个 Agent、传什么状态。)
+
+| 范式 | 关心什么 | 节点是啥 | 边是啥 |
 | --- | --- | --- | --- |
-| Prompt Engineering | 单条提示词 | 调措辞、加示例、加 CoT | 一组能跑出好答案的 prompt |
-| Context Engineering | 喂给模型的全部上下文 | 检索、压缩、注入工具、记忆管理 | 一个能稳定产出可信答案的 RAG/Agent 系统 |
-| **Graph Engineering** | **结构化的知识图谱本身** | **设计本体、抽取实体关系、对齐融合、推理查询** | **一张可演化的领域知识图谱 + 查询接口** |
+| GraphRAG / 知识图谱 | 数据建模 | 实体(人、公司、概念) | 实体间关系(WORKS_AT、ACQUIRED) |
+| **Graph Engineering** | **执行建模** | **专门的 Agent / 步骤** | **Agent 间的工作路由 + 状态传递** |
 
-一句话区分：
-
-- **Prompt Engineering** 在调"问题怎么问"。
-- **Context Engineering** 在调"上下文怎么喂"。
-- **Graph Engineering** 在调"知识本身怎么长出来、长成什么形状、怎么被检索"。
-
-GraphRAG、Neo4j + LangChain、Microsoft 的 GraphRAG 库、ESWC 2024 上的"自配置 KG 构造流水线"，本质上都是 Graph Engineering 的具体实践。
+记住:**前者是给 LLM 看的知识,后者是给 LLM 排的班。**
 
 ---
 
-## 二、为什么 2024-2026 年 Graph Engineering 突然重要？
+## 三、五层堆叠:Prompt → Context → Harness → Loop → Graph
 
-三个推动力同时到位：
+理解 Graph Engineering 最好的方式,是把它放进过去三年 LLM 工程范式的演进轴。注意这五层**是堆叠关系,不是替代关系**:
 
-1. **LLM 的"幻觉天花板"**：再强的模型也会瞎编。RAG 用检索缓解了，但传统向量 RAG 在跨文档、跨实体、跨时间的关系推理上仍然弱——"2020 年 A 公司收购 B 公司之后，B 的 CEO 是谁？" 这个问题纯向量召回通常答不对。
-2. **企业知识资产化诉求**：内部 FAQ、合同、Wiki、工单散落在几十个系统里，老板想要的不是"一个聊天机器人"，而是"一张能查、能分析、能演化的知识地图"。知识图谱（KG）是最自然的形态。
-3. **LLM Agent 把 KG 的构造门槛打下来了**：以前建一张企业 KG 需要 NLP 团队写规则、写模板、跑 ETL；现在 LLM 抽实体关系、社区检测算法自动聚类，几小时就能出一张百万节点的 KG。Microsoft 的 GraphRAG 论文 *From Local to Global: A Graph RAG Approach to Query-Focused Summarization* 就是这一波的标志性工作。
+| # | 层级 | 你在工程化什么 | 核心问题 |
+| --- | --- | --- | --- |
+| 1 | **Prompt Engineering** | 单条请求 | 我问得清楚吗? |
+| 2 | **Context Engineering** | 模型"看到"什么 | 它有正确的信息吗? |
+| 3 | **Harness Engineering** | 工具、记忆、脚手架 | 它能对世界动手并记住吗? |
+| 4 | **Loop Engineering** | 一个 Agent 内部的重复循环 | 它什么时候检查自己的活、什么时候停? |
+| 5 | **Graph Engineering** | **多个 Agent / 步骤之间的协作** | **谁干什么、按什么顺序、共享什么状态?** |
 
-也就是说：**LLM 让"建图"变得便宜，"用图"的需求又真实存在**——Graph Engineering 应运而生。
+原文点出一个关键事实:
+
+> "**The useful thing about the stack is that it's cumulative, not a ladder you climb _away_ from.** A graph is full of nodes; a good node is a well-designed loop; a good loop needs a real harness — the six components that make an agent able to act at all. Skip a lower layer and the graph on top just fails in a more elaborate way."
+>
+> (这套栈的关键是它是累积的,不是越爬越远离模型的梯子。Graph 里满是 Node;一个好的 Node 是个好的 Loop;一个好的 Loop 需要一个真的 Harness —— 让 Agent 能动起来的六个组件。跳掉下面任何一层,上面的 Graph 就只是换了一种更复杂的方式失败。)
+
+这也是我之前一版文章犯的错:把"Prompt → Context → Graph"当成范式轴。**实际是五层,不是三层**;而且 Harness、Loop 都比 Graph 更早该被掌握。
 
 ---
 
-## 三、Graph Engineering 的标准流水线
+## 四、什么时候该用 Graph?(一个很反直觉的答案)
 
-不管你用 Neo4j + LangChain、LlamaIndex + 微软 GraphRAG，还是自研流水线，**Graph Engineering 的核心阶段基本一致**。下面给一个工业界常见的 7 段式：
+原指南第一句话是:
 
-```
-[原始数据]
-   ├─ 结构化（DB / API / 表格）
-   └─ 非结构化（文档 / 工单 / 邮件 / IM）
-            │
-            ▼
-   ① 本体设计 Ontology Design
-            │   ← 业务专家 + LLM 协作
-            ▼
-   ② 实体-关系抽取 Triple Extraction
-            │   ← LLMGraphTransformer / LLMPathExtractor
-            ▼
-   ③ 实体对齐 / 消歧 Entity Resolution
-            │   ← 指代消解 + 向量相似度合并
-            ▼
-   ④ 嵌入与索引 Embedding & Indexing
-            │   ← BGE-M3 / text-embedding-3-small 等
-            ▼
-   ⑤ 社区检测与摘要 Community Detection & Summarization
-            │   ← Leiden / Louvain 算法 + LLM 摘要
-            ▼
-   ⑥ 图存储 Graph Storage
-            │   ← Neo4j / Memgraph / NebulaGraph / TigerGraph
-            ▼
-   ⑦ 查询与推理 Query & Reasoning
-            ← 自然语言 → Cypher → 子图 → LLM 生成答案
-```
+> "**The default answer is: you probably don't.** A single well-scoped task with a clear verifier is a loop, and reaching for a graph there is pure overhead."
+>
+> (默认答案:你大概率不需要 Graph。范围清晰、有明确验证器的单任务就是个 Loop,这时候用 Graph 是纯粹的浪费。)
 
-每一段都对应可工程化的组件，下面展开几个最关键的。
+判据表 —— 这些是"触发条件",不是"打勾清单":
 
-### 3.1 本体设计（Ontology Design）
+| 信号 | Loop 够用 | 该用 Graph |
+| --- | --- | --- |
+| **任务形状** | 一个有清晰终点的任务 | 拆成若干独立专长,需要交接 |
+| **并行度** | 步骤是顺序的 | 需要 fan-out(并发)再 join(汇合) |
+| **每步的工具/模型** | 全程同一套工具/模型 | 不同步骤用不同模型或工具集 |
+| **控制流** | 一个 Agent 可以安全放养 | 需要显式、可审计的"角色路由" |
+| **失败隔离** | 一步错了重试就行 | 希望"一个坏节点"不污染其他节点 |
+| **谁来验证** | Agent 自检自己的 Loop 输出 | **专门的审稿节点**(通常是另一个模型)检查别人产出 |
 
-KG 不是把所有节点都扔进去——**先定形状，再灌数据**。
+判断标准用一句话总结:
 
-- 业务侧：定义实体类型（Person、Company、Product、Ticket）、关系类型（WORKS_AT、ACQUIRED、REPORTED_BY）、属性约束。
-- 技术侧：可以由 LLM 辅助生成初版本体，再由领域专家审核、合并、剪枝。
-- 经验法则：**宁少勿多、可演化**。本体一旦定下，后续抽取和查询都依赖它；过度设计会拖垮工程进度。
+> "**The difference is who decides the path, the agent or you.**"
+>
+> (区别在于:路径由谁决定 —— Agent 自己,还是你。)
 
-### 3.2 实体-关系抽取（Triple Extraction）
+---
 
-这是 Graph Engineering 最 LLM-heavy 的一段。两种主流路径：
+## 五、两个正反案例:什么样的 Graph 是浪费,什么样的值得建
 
-- **LangChain `LLMGraphTransformer`**：把文档分块，让 LLM 按本体 schema 输出 `(head, relation, tail)` 三元组。
-- **LlamaIndex `LLMPathExtractor` / `SimpleLLMPathExtractor`**：在节点遍历过程中提取路径型三元组，适合更长文档。
+### 🚫 过度工程的 Graph(你其实不需要)
 
-提示词设计是关键：
+> "Summarize this PDF." 你建了一个 5 节点 Graph:fetcher、chunker、summarizer、reviewer、formatter,带条件边和共享 state。能跑 —— 但比"一个 Agent 读文件、写摘要"**慢、难调试、贵**。**你用一个组织架构图来回复了一封邮件。**
 
-- 必须强制 LLM 输出**结构化 JSON**（最好带 schema 校验）。
-- 必须显式告知允许的实体类型和关系类型，避免幻觉出新概念。
-- 批量化时要注意 token 预算——一篇 10k 字文档，LLM 抽完可能要几千 token。
+### ✅ 恰到好处的 Graph(它真的有用)
 
-### 3.3 实体对齐 / 消歧（Entity Resolution）
+> "Produce a researched, fact-checked market brief every morning."
+> - researcher 节点并行 fan-out 五个数据源
+> - synthesizer 节点汇总
+> - writer 节点起草
+> - skeptical reviewer 节点(不同模型、只读)打分,不过就打回
+>
+> 每个节点都做着"一个 Loop 干不来"的活,交接本身就是价值。
 
-抽取出来的实体经常出现：
+判据原文:
 
-- 同名异指：两个 "Apple" 一个是水果一个是公司。
-- 异名同指：同一个人在不同文档里被叫 "张博士"、"张老师"、"老张"。
+> "**The tell is whether the graph is _doing work the loop couldn't._** If you can collapse your five nodes back into one agent's loop and lose nothing, you should."
+>
+> (判断信号在于:这张图是否在做"Loop 做不了"的活。如果你能把五个节点合并回一个 Agent 的 Loop 而毫无损失,那就别建图。)
 
-解法：
+---
 
-- **基于向量**：用 BGE-M3、text-embedding-3-small 等多语种 embedding 算相似度，把相似度高于阈值的合并。
-- **基于规则**：人名加正则匹配、公司名加工商注册号匹配。
-- **基于 LLM**：把候选对喂给 LLM 判定是否合并，准确率高但成本也高。
-- 这一步直接决定 KG 的"噪音水平"——垃圾进，垃圾出。
+## 六、工具栈(2026 年 7 月)
 
-### 3.4 嵌入与索引（Embedding & Indexing）
+这些框架在"Graph Engineering"这个词流行之前,就已经把"节点 + 边 + 共享状态"这套做出来了:
 
-实体和关系都需要向量化，方便后续做：
+| 框架 | 出品方 | 定位 |
+| --- | --- | --- |
+| **[LangGraph](https://langchain-ai.github.io/langgraph/)** | LangChain | "a low-level orchestration framework and runtime for building, managing, and deploying long-running, stateful agents" —— 你定义 `StateGraph`,加节点,加边 |
+| **[AutoGen GraphFlow](https://microsoft.github.io/autogen/)** | Microsoft | AutoGen 的图式多 Agent 编排:描述一组 Agent 怎么连接和交接 |
+| **[Google ADK](https://google.github.io/adk-docs/)** | Google | 把"图式架构"作为头条特性,内置 sequential、parallel、loop 三类 workflow agent 和 agent routing |
+| **[A2A](https://github.com/a2a-protocol/A2A)** | 开源协议 | Agent2Agent,跨系统、跨团队的 Agent 之间"图与图的边" |
 
-- 相似实体查找（消歧用）。
-- 自然语言到实体的语义检索（用户问"我们公司的 CEO 是谁" → 找到 Person 节点）。
-- 混合检索中的向量召回。
+关于"恭喜你重新发明了 LangGraph"这条梗,原文给的回答是:
 
-中文场景下 **BAAI/bge-m3** 几乎是默认选择（多语言、多粒度、支持 8k 输入），英文场景 text-embedding-3-small 性价比最高。
+> "**The technology, largely yes — LangGraph, GraphFlow, and ADK got there first. What's actually new in mid-2026 is narrower and softer: a _shared name_ for the design decisions those frameworks always asked of you.**"
+>
+> (技术上,是的 —— LangGraph、GraphFlow、ADK 早就做出来了。2026 年中真正新的东西更窄更软:一个共同的名称,去称呼那些框架一直在让你做的设计决策。)
 
-### 3.5 社区检测与摘要（Community Detection & Summarization）
+翻译一下:工具早就有了;Graph Engineering 这个词的真正贡献,是**给了一整套命名法和判据**,让你知道什么时候该用、什么时候不该用。
 
-这是 Microsoft GraphRAG 的招牌环节：
+---
 
-- 用 **Leiden / Louvain** 等算法把整张图切成层级化的社区（hierarchy of communities）。
-- 每个社区用 LLM 单独生成一段摘要（community summary）。
-- 高层查询（"我们公司过去一年的战略主线是什么"）→ 走社区摘要；低层查询（"张博士去年写过哪些文档"）→ 走实体邻居遍历。
+## 七、动手指南:把 Loop 升级到 Graph 的 8 步清单
 
-这一步让 KG 从"一张图"变成"一个分层索引"，支持从宏观到微观的多粒度问答。
+> 原指南: "**Graph engineering is the layer _above_ loop engineering, and the fastest way to build a bad graph is to skip the loop. So the honest first move isn't 'learn graphs.' It's: nail the loop your first node will run.**"
 
-### 3.6 图存储（Graph Storage）
+翻译:Graph Engineering 是 Loop Engineering 之上的那一层;建出烂 Graph 最快的方式就是跳过 Loop。所以诚实的起步动作不是"学 Graph",而是**先把第一个节点要跑的 Loop 写好**。
 
-主流选型：
+写好 Loop 之后,真要升级到 Graph 时,过这 8 步:
 
-| 数据库 | 适合场景 |
+1. **先问一句:能不能还是 Loop?** 单个有验证器的 Agent 能干,就停在这一步。
+2. **节点命名要有"专长"**:每个节点要有一个"单 Loop 真的干不了"的活。
+3. **先画边再写代码**:画清楚哪里顺序、哪里 fan-out、哪里 fan-in、那条条件/打回边在哪里。
+4. **共享状态对象要显式设计**:沿边传什么、谁有权写,要先想清楚。
+5. **审稿节点要有牙**:通常最有价值的节点是"另一个模型做的、只读的 verifier"。
+6. **失败要隔离**:一个节点失败重试,不能污染共享状态或下游节点。
+7. **选框架别手撸**:LangGraph / AutoGen GraphFlow / Google ADK 已经给了你节点、边、状态、fan-out、fan-in、loop。
+8. **设花费上限和硬边界**:Graph = 很多 Loop;弱的 verifier 现在是并行烧 token。设 cap。
+
+收尾标准:
+
+> "If you build a graph this week, the win condition isn't 'it has the most nodes.' It's 'every node is doing work a loop couldn't, and I could still explain the whole thing in one breath.'"
+>
+> (如果你本周要建一张图,胜出的条件不是"它节点最多",而是"每个节点都在做 Loop 做不了的活,而且我能一口气把整张图讲清楚"。)
+
+---
+
+## 八、什么时候**不**该用 Graph Engineering?
+
+来自原指南的警告:
+
+- **任务形状单一、终点清晰** —— 单 Loop 干就行。
+- **需要并行但没有"角色区分"** —— 一个 Loop 里 `asyncio.gather` 即可,不要硬上 Graph。
+- **验证器不够"独立"** —— reviewer 节点用同一个 Agent 的 prompt 换皮,等于没有 verifier。
+- **状态很薄或无状态** —— 没有共享 state,Graph 的最大价值就没了。
+
+更简单的判据:**如果你能用一句话向同事讲清楚 Graph 的拓扑,那它可能合理;如果你需要画完整 ASCII 图才能讲清楚,那它大概率是过度工程。**
+
+---
+
+## 九、和其他概念的关系
+
+| 概念 | 关系 |
 | --- | --- |
-| **Neo4j** | 工业界事实标准，Cypher 生态成熟，社区版免费 |
-| **Memgraph** | 内存图，适合实时 / 流式场景 |
-| **NebulaGraph** | 国产开源，超大规模分布式 |
-| **TigerGraph** | 企业级，分析型查询极快 |
-| **Kùzu** | 嵌入式，轻量级，适合单机原型 |
-
-选型要素：数据量级、查询模式（OLTP 还是 OLAP）、是否需要分布式、生态成熟度。
-
-### 3.7 查询与推理（Query & Reasoning）
-
-最后一公里：
-
-1. **NL2Cypher**：用户问自然语言 → LLM 生成 Cypher → 执行 → 结果 → LLM 写成自然语言答案。
-2. **Hybrid Retrieval**：向量召回 + 图遍历 + 关键词搜索三路融合。
-3. **Agentic Traversal**：让 LLM Agent 自己决定走哪条路径（DRIFT 搜索就是这种思路）。
+| **Knowledge Graph / GraphRAG** | **数据建模** vs **执行建模**;前者给 LLM 看,后者给 LLM 排班。可叠加用 |
+| **Agent Orchestration** | 同义近义词,但 Graph Engineering 强调"图 + 状态"的设计决策,而 orchestration 是更宽泛的词 |
+| **Workflow Engine(Temporal / Airflow)** | 是 Graph Engineering 的"工业级远亲",但 Workflow 引擎通常无状态、确定性;Agent Graph 是有状态、非确定性的 |
+| **Microservices / SOA** | 概念同构(节点 + 边 + 状态),但目标不同:微服务是"对外提供 API";Agent Graph 是"协作完成一个 LLM 任务" |
 
 ---
 
-## 四、和相关领域的关系
+## 十、结语:五层都要会,先别跳级
 
-Graph Engineering 不是凭空冒出来的，它站在多个老领域的肩膀上：
+Graph Engineering 在 2026 年中真正新加的东西,其实**不是技术**。LangGraph、AutoGen、ADK 早就有了。新的是:
 
-| 相关领域 | 关系 |
-| --- | --- |
-| **传统知识图谱（KG）** | 基础学科，提供本体论、Cypher、推理规则；Graph Engineering 是 LLM 时代的"复活版" |
-| **图神经网络（GNN）** | 算法侧邻居，给 KG 提供节点分类、链接预测等能力 |
-| **RAG（检索增强生成）** | GraphRAG 是 RAG 的"图增强版"，用图遍历代替 / 补充向量检索 |
-| **LangGraph / Agent** | 工程侧编排，用状态图来驱动多步检索与工具调用 |
-| **Data Engineering** | 流程相似（采集 → 清洗 → 建模 → 服务化），但建模对象从表换成了图 |
-| **Context Engineering** | 上游：Context Engineering 喂给 LLM 的"上下文"经常就来自一张 KG |
+1. 一个**共同的命名**去称呼"多 Agent 协作设计"这件事
+2. 一组**判据**去判断什么时候该用、什么时候不该用
+3. 一套**清单**让你在升级到 Graph 时不至于跳层
 
-**最容易混淆的两个概念**：
+如果你现在 Agent 工程还在 Prompt 层,就**先别学 Graph**。先把 Context 做好(喂它对的信息),把 Harness 立起来(它能动手、能记住),把 Loop 调对(它知道什么时候停、什么时候打回),然后**任务本身会逼你升级到 Graph**。这时候你再回头读这篇文章,会发现原指南里那 8 步清单,每一步都对应着"前面那层没做对"的症状。
 
-- **Graph Engineering（本文主题）**：构建并运营知识图谱的工程范式。
-- **GraphRAG**：用 KG 改进 RAG 的一种具体技术方案，可以理解为 Graph Engineering 的一种应用形态。
-
----
-
-## 五、典型工具栈（2026 年实战版）
-
-按"最小可用"到"工业级"排序：
-
-**入门版（单机原型）**
-
-- LlamaIndex + Neo4j + LangChain `LLMGraphTransformer`
-- 一个 Python Notebook 跑通端到端
-
-**进阶版（小团队生产）**
-
-- Neo4j + LangGraph + BGE-M3 + Leiden
-- 加社区检测 + 实体消歧
-- 用 LangGraph 编排 NL2Cypher + 多轮对话
-
-**工业级（企业级生产）**
-
-- 微软 GraphRAG 库 + NebulaGraph + 自动化本体演化
-- 增量更新 pipeline（Kafka → 抽取 → 对齐 → 入图）
-- 监控：节点/边数量、抽取成功率、社区稳定性、查询 P99 延迟
-
-**关键开源项目**
-
-- [microsoft/graphrag](https://github.com/microsoft/graphrag)
-- [neo4j/neo4j-graphrag-python](https://github.com/neo4j/neo4j-graphrag-python)
-- [neo4j-graphacademy/llm-knowledge-graph-construction](https://github.com/neo4j-graphacademy/llm-knowledge-graph-construction)
-- [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph)
-
----
-
-## 六、落地挑战：现实没有 PPT 那么顺
-
-Graph Engineering 在 PoC 阶段都很漂亮，上生产会撞到几个常见问题：
-
-1. **本体的"熵增"**：业务一变，节点/关系就要跟着变。**本体版本管理**比想象中难。
-2. **抽取的幻觉成本**：LLM 抽错了几个实体，可能污染整张图。必须有**人工审核回路**或 LLM-as-a-judge 自检。
-3. **增量更新的死锁**：增量抽取很容易产生"中间态"——一个三元组加进去破坏了上下文，需要回滚。常见解法是引入**事务图（temporal graph）**。
-4. **查询体验分裂**：自然语言查询的 hit rate 远低于向量 RAG。LLM 生成的 Cypher 经常语法错、效率差。需要 **prompt 缓存、few-shot 示例库、Cypher 校验器**。
-5. **成本**：百万级文档抽三元组，token 费用可以轻松烧掉几千美元。需要**分块策略 + 抽样 + 缓存**。
-6. **评估难**：KG 质量不像分类任务有标准指标。常用做法是**问答命中率 + 实体准确率 + 社区稳定性** 三维度评估。
-
----
-
-## 七、和 Adobe Project Graph 等"可视化工作流"的关系
-
-你可能听过 Adobe Project Graph——它把 AI 创作流程做成可视化节点图，让设计师能编辑每个节点。这是**"图作为用户界面"**。
-
-Graph Engineering 的"图"则是**"图作为数据结构和推理底座"**。
-
-两者形态相似（都是节点+边），但目标不同：
-
-- Project Graph 是给人类看的执行流；
-- Graph Engineering 是给 LLM 推理用的知识底座。
-
-未来这两者很可能融合：用可视化图编辑器直接构造企业 KG，下游自动接到 LLM Agent。
-
----
-
-## 八、入门建议：怎么开始一个 Graph Engineering 项目？
-
-如果你想动手：
-
-1. **选一个小而具体的领域**——比如"公司内部技术博客的知识图谱"，不要一上来就做"全公司知识库"。
-2. **先用 GraphRAG 跑通 PoC**——装 Neo4j Desktop + microsoft/graphrag，一份文档跑一遍，看效果。
-3. **把本体设计当作产品决策**——找业务方坐下来聊一次，定下实体和关系清单。
-4. **引入人工审核环节**——前 1000 个三元组全人工 review，建立信心后再自动化。
-5. **接一个真实查询场景**——比如"客户 X 的所有相关工单和文档"，把图谱和真实业务流打通。
-6. **把评估写进代码**——节点/边数量、抽取命中率、查询 P99、用户满意度，每一周跑一次。
-
-**Don't**：
-
-- 不要一开始就用最复杂的图数据库——Neo4j 单机版够用 90% 的场景。
-- 不要试图让本体一步到位——本体是迭代长出来的。
-- 不要忽略数据治理——KG 一旦上线，它就变成了"事实来源"，错的图比没图更糟。
-
----
-
-## 九、展望：Graph Engineering 接下来的 12-24 个月
-
-几个值得关注的趋势：
-
-1. **本体自动演化**：用 LLM 监控新文档，自动建议新增实体/关系类型，由人审批。
-2. **多模态 KG**：图里不仅有文本实体，还有图片、表格、视频片段。CLIP 类模型会成为标配。
-3. **图 + Agent 双向耦合**：Agent 既消费 KG（查实体）也生产 KG（执行后写回边）。
-4. **Temporal KG 工业化**：几乎所有业务场景都涉及时间，"事件 A 之后，状态 B 如何变" 这类问题会越来越普遍。
-5. **Graph Foundation Model**：类似 LLM，但专门做图推理——目前还在论文阶段，但 Neo4j、Anthropic 都在跟踪。
-
----
-
-## 十、结语
-
-Graph Engineering 不是要取代 Prompt Engineering 或 Context Engineering，而是 LLM 工程栈的**下一层基础**：
-
-> 当你调好 prompt、设计好上下文，仍然发现模型在跨实体、跨时间、跨系统的复杂问题上答不对——你就该考虑 Graph Engineering 了。
-
-工程化知识这件事，十年前因为太贵没人做；现在 LLM 让它变便宜了。剩下的就是把它做对、做稳、做成产品。
+> 工程化 Agent 这件事,和建组织一样:**先把单人产出打好,再谈分工**。
 
 ---
 
 ## 参考资料
 
-1. Microsoft Research, *From Local to Global: A Graph RAG Approach to Query-Focused Summarization*, 2024.
-2. ESWC 2024, *Towards self-configuring Knowledge Graph Construction Pipelines using LLMs*.
-3. IEEE 综述, *Graph Large Agent (GLA): A Unified Blueprint for Complex Systems*, 2025.
-4. Neo4j GraphAcademy, *LLM Knowledge Graph Construction* 课程.
-5. LangChain / LlamaIndex / LangGraph 官方文档（2024-2026）.
-6. *从 Prompt Engineering 到 Context Engineering*, 腾讯研究院, 2025.
-7. [YouTube: Graph Engineering 科普视频](https://youtu.be/tn_I4_1yFSY).
+1. [@sairahul1](https://twitter.com/sairahul1) 在 X 上的"Prompt, context, harness, loop & graph engineering, clearly explained!" 推文 —— 五层堆叠范式的原始出处。
+2. [AI Builder Club: Graph Engineering Guide 2026](https://www.aibuilderclub.com/blog/graph-engineering-guide-2026) —— 本文核心来源,包含定义、判据、反面案例、8 步清单。
+3. [LangGraph](https://langchain-ai.github.io/langgraph/) —— LangChain 的低层 Agent 编排运行时。
+4. [Microsoft AutoGen - GraphFlow](https://microsoft.github.io/autogen/) —— Microsoft 的图式多 Agent 编排。
+5. [Google ADK](https://google.github.io/adk-docs/) —— Google Agent Development Kit,内置 sequential/parallel/loop workflow agents。
+6. [A2A Protocol](https://github.com/a2a-protocol/A2A) —— Agent2Agent,跨系统的 Agent 协作协议。
+7. [Mitchell Hashimoto / HumanLayer 关于 Harness Engineering 的论述](https://www.humanlayer.dev/blog/harness-engineering) —— 五层中"Harness"层的来源参考。
