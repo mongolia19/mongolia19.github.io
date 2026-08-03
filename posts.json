@@ -1,18 +1,18 @@
 [
   {
     "id": "graph_engineering",
-    "title": "Graph Engineering:当 AI 工程师开始像数据工程师一样构建知识图谱",
+    "title": "Graph Engineering:为 Agent 画一张\"工作路线图\"",
     "date": "2026-08-03",
-    "summary": "你可能已经熟悉了 Prompt Engineering、Context Engineering，那么 **Graph Engineering** 是什么？为什么大厂和前沿团队都在悄悄把它列为 2025-2026 年最值得投入的工程范式之一？本文结合一份 YouTube 上的英文科普视频，并补充 GraphRAG、LangGraph、Microsoft GraphRAG 等一线实战资料，系统梳理这个",
+    "summary": "把多 Agent 协作这件事像画组织架构图一样画清楚 —— 节点是专门角色,边是路由,共享状态沿边流动。Graph Engineering 不是 GraphRAG,也不是新能力,而是一组判据、一套清单、一段诚实的自我审视。",
     "cover": "posts/graph_engineering_cover.jpg",
     "lang": "cn",
     "file": "posts/graph_engineering.md",
     "tags": [
       "Graph Engineering",
-      "LLM",
-      "知识图谱",
-      "RAG",
-      "GraphRAG"
+      "Agent",
+      "LangGraph",
+      "Multi-Agent",
+      "Loop Engineering"
     ]
   },
   {

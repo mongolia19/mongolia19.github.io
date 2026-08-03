@@ -1,10 +1,5 @@
 # Graph Engineering:为 Agent 画一张"工作路线图"
 
-> **作者**：卡兹克  
-> **标签**：`Graph Engineering` | `Agent` | `LangGraph` | `Multi-Agent` | `Loop Engineering`
-
----
-
 > 2026 年 7 月中,X(推特)上爆火一个新词:**Graph Engineering**。它指的是**为多个 Agent 画一张执行图**——节点(专门的 agent 或步骤)负责干活,边负责路由,共享状态沿边流动。本文基于 [AI Builder Club 的《Graph Engineering Guide (2026)》](https://www.aibuilderclub.com/blog/graph-engineering-guide-2026)原文,系统讲清楚这个概念**是什么、不是什么、什么时候该用、什么时候是过度工程**,以及它引发的**真正争论**。
 >
 > 一句话先放在最前:大多数任务你**不需要**图。这篇文章里被嘲笑的"用一个组织架构图来回复一封邮件"的事,正在被很多人做。
