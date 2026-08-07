@@ -1,5 +1,15 @@
 [
   {
+    "id": "ai-automation-service-delivery",
+    "title": "别把 AI 自动化卖成聊天机器人：一个能交付的 n8n 项目，应该长什么样",
+    "date": "2026-08-07",
+    "summary": "AI 自动化服务真正卖的是一条可审计流程：边界、人工审批、异常处理和可复盘记录。用线索分流为例，讲清首个 n8n 项目如何定义、交付和报价。",
+    "cover": "cover.jpg",
+    "lang": "cn",
+    "file": "posts/ai-automation-service-delivery.md",
+    "tags": ["AI 自动化", "n8n", "AI Agent", "工作流", "企业服务"]
+  },
+  {
     "id": "graph_engineering",
     "title": "Graph Engineering:为 Agent 画一张\"工作路线图\"",
     "date": "2026-08-03",
