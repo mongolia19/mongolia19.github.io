@@ -1,5 +1,21 @@
 [
   {
+    "id": "minimax-h3-deep-dive",
+    "title": "MiniMax H3 真正的新东西，不是 2K，而是它开始把视频生成当成一门语言",
+    "date": "2026-08-11",
+    "summary": "MiniMax H3 把文字、图像、视频和声音塞进同一套生成系统。真正值得看的不是 2K 标签，而是 Context-IR、33B 单流 Transformer、音画联合 latent 与 In-context Regeneration 组成的新工作流。",
+    "cover": "posts/minimax-h3-cover.jpg",
+    "lang": "cn",
+    "file": "posts/minimax-h3-deep-dive.md",
+    "tags": [
+      "MiniMax H3",
+      "视频生成",
+      "多模态",
+      "开源模型",
+      "AIGC"
+    ]
+  },
+  {
     "id": "ai-automation-service-delivery",
     "title": "别把 AI 自动化卖成聊天机器人：一个能交付的 n8n 项目，应该长什么样",
     "date": "2026-08-07",
