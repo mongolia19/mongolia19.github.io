@@ -1,7 +1,7 @@
 [
   {
     "id": "minimax-h3-deep-dive",
-    "title": "开源打平 Seedance 2.0，MiniMax H3 到底做对了什么？",
+    "title": "开源打平 Seedance 2.3，MiniMax H3 到底做对了什么？",
     "date": "2026-08-11",
     "summary": "MiniMax H3 把文字、图像、视频和声音塞进同一套生成系统。真正值得看的不是 2K 标签，而是 Context-IR、33B 单流 Transformer、音画联合 latent 与 In-context Regeneration 组成的新工作流。",
     "cover": "posts/minimax-h3-cover.jpg",

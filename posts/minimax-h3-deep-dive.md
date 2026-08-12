@@ -1,4 +1,4 @@
-# 开源打平 Seedance 2.0，MiniMax H3 到底做对了什么？
+# 开源打平 Seedance 2.3，MiniMax H3 到底做对了什么？
 
 > **作者**：卡兹克  
 > **标签**：`MiniMax H3` | `视频生成` | `多模态` | `开源模型` | `AIGC`
