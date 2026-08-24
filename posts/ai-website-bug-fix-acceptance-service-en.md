@@ -1,3 +1,4 @@
+# AI Freelance Playbook: Turn Legacy Website Bug Fixes into a Bounded Service
 
 ## The conclusion: sell acceptance evidence, not “I use AI”
 
