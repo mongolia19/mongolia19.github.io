@@ -1,5 +1,25 @@
 [
   {
+    "id": "ai-website-bug-fix-acceptance-service",
+    "title": "AI 接单实战：老网站 Bug 修复＋验收录像，如何做成标准化轻量服务",
+    "date": "2026-08-24",
+    "summary": "把一个获授权的老网站小 Bug 做成范围明确、可复现、可验证、可回退的轻量交付单：AI 负责加速排查，人负责修复判断和验收证据。",
+    "cover": "cover.jpg",
+    "lang": "cn",
+    "file": "posts/ai-website-bug-fix-acceptance-service.md",
+    "tags": ["AI 接单", "网站 Bug 修复", "Playwright", "网站测试", "验收录像"]
+  },
+  {
+    "id": "ai-website-bug-fix-acceptance-service-en",
+    "title": "AI Freelance Playbook: Turn Legacy Website Bug Fixes into a Bounded Service",
+    "date": "2026-08-24",
+    "summary": "Package one authorized legacy-website bug as a reproducible, verifiable, reversible delivery: let AI accelerate investigation while a human owns the patch decision and acceptance evidence.",
+    "cover": "cover.jpg",
+    "lang": "en",
+    "file": "posts/ai-website-bug-fix-acceptance-service-en.md",
+    "tags": ["AI freelancing", "website bug fix", "Playwright", "QA evidence", "acceptance recording"]
+  },
+  {
     "id": "minimax-h3-deep-dive",
     "title": "开源打平 Seedance 2.3，MiniMax H3 到底做对了什么？",
     "date": "2026-08-11",
