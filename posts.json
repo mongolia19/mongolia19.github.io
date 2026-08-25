@@ -1,5 +1,18 @@
 [
   {
+    "id": "minimax-h3-video-hustle",
+    "title": "MiniMax-H3（海螺视频）深度实操指南：从提示词语法结构、运镜指令词典到首尾帧高级控度",
+    "date": "2026-08-25",
+    "summary": "拒绝空洞理论，深度拆解 MiniMax 最新 H3 / Hailuo 视频大模型的底层生成机制。全面掌握「70/30 描述权重法则」、五维黄金提示词架构、专业运镜词典、图生视频（I2V）增量控制及首尾帧无缝插帧实战语法。",
+    "cover": "posts/minimax-h3-video-hustle_cover.jpg",
+    "lang": "cn",
+    "file": "posts/minimax-h3-video-hustle.md",
+    "tags": [
+      "AI",
+      "技术分享"
+    ]
+  },
+  {
     "id": "ai-website-bug-fix-acceptance-service",
     "title": "AI 接单实战：老网站 Bug 修复＋验收录像，如何做成标准化轻量服务",
     "date": "2026-08-24",
@@ -7,7 +20,13 @@
     "cover": "cover.jpg",
     "lang": "cn",
     "file": "posts/ai-website-bug-fix-acceptance-service.md",
-    "tags": ["AI 接单", "网站 Bug 修复", "Playwright", "网站测试", "验收录像"]
+    "tags": [
+      "AI 接单",
+      "网站 Bug 修复",
+      "Playwright",
+      "网站测试",
+      "验收录像"
+    ]
   },
   {
     "id": "ai-website-bug-fix-acceptance-service-en",
@@ -17,7 +36,13 @@
     "cover": "cover.jpg",
     "lang": "en",
     "file": "posts/ai-website-bug-fix-acceptance-service-en.md",
-    "tags": ["AI freelancing", "website bug fix", "Playwright", "QA evidence", "acceptance recording"]
+    "tags": [
+      "AI freelancing",
+      "website bug fix",
+      "Playwright",
+      "QA evidence",
+      "acceptance recording"
+    ]
   },
   {
     "id": "minimax-h3-deep-dive",
@@ -43,7 +68,13 @@
     "cover": "cover.jpg",
     "lang": "cn",
     "file": "posts/ai-automation-service-delivery.md",
-    "tags": ["AI 自动化", "n8n", "AI Agent", "工作流", "企业服务"]
+    "tags": [
+      "AI 自动化",
+      "n8n",
+      "AI Agent",
+      "工作流",
+      "企业服务"
+    ]
   },
   {
     "id": "graph_engineering",
