@@ -1,5 +1,21 @@
 [
   {
+    "id": "recurrent-transformer-astra",
+    "title": "从 GPT-6 Astra 的“循环架构”传闻说起：Recurrent Transformer 是如何重塑大模型推理范式的？",
+    "date": "2026-09-07",
+    "summary": "随着 2026 年 9 月 OpenAI GPT-6 (Astra) 发布引发热议，循环 Transformer（Looped / Recurrent Transformer）架构正式走进大众视野。本文深度拆解 NeurIPS/ICLR 奠基论文核心创新与实验，剖析其对 Astra 的战略意义，并带你用单台 M1 Mac 跑通开源 100M 极简复现。",
+    "cover": "posts/recurrent-transformer-astra_cover.jpg",
+    "lang": "cn",
+    "file": "posts/recurrent-transformer-astra.md",
+    "tags": [
+      "人工智能",
+      "大模型",
+      "Transformer",
+      "深度学习",
+      "开源项目"
+    ]
+  },
+  {
     "id": "minimax-h3-video-hustle",
     "title": "MiniMax-H3（海螺视频）深度实操指南：从提示词语法结构、运镜指令词典到首尾帧高级控度",
     "date": "2026-08-25",
