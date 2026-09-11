@@ -1,10 +1,10 @@
 [
   {
     "id": "deepseek-v41-architecture",
-    "title": "从一张信息流图读懂 DeepSeek-V4.1-Flash：CED、SWA 与 KV Cache 压缩",
+    "title": "变形虫也能懂的 DS-V4.1 原理拆解！",
     "date": "2026-09-11",
     "summary": "新闻现场：为什么一个叫 Flash 的模型，要把 KV Cache 写进标题 2026 年 9 月 10 日，DeepSeek 发布 V4.1 Flash。官方新闻把它概括成“原生多模态、全新非对称结构、能力更强、速度更快、成本更低”。[2] API 公告又补了一层背景：V4.1 Flash 是新模型结构系列中的最小尺寸版本，目标是提高能力上限、推理速度和吞吐，并继续向更大参数规模扩展。[3] 这",
-    "cover": "posts/deepseek-v41-architecture_cover.png",
+    "cover": "posts/deepseek-v41-architecture_cover.jpg",
     "lang": "cn",
     "file": "posts/deepseek-v41-architecture.md",
     "tags": [
