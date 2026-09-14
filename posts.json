@@ -1,5 +1,18 @@
 [
   {
+    "id": "ai-subscription-guide-2026",
+    "title": "过去半年我把主流大模型买了个遍，这是踩坑后的续费建议",
+    "date": "2026-09-14",
+    "summary": "上个月底我拉了一下自己的账单，发现为了尝鲜和干活，不知不觉同时开着 Claude Pro、ChatGPT Plus、Google AI Pro，一个月扣掉一千多块钱。用着用着我发现，很多钱其实花得很冤——各家限流机制完全不同，适合的场景也大相径庭，自己根本没法把每个并发额度都吃满。 这篇就是把我这半年真金白银掏钱试下来的经验总结出来，每家至少聊两个档位，重点说清楚钱到底花在哪、什么场景值得买、什么",
+    "cover": "posts/ai-subscription-guide-2026_cover.jpg",
+    "lang": "cn",
+    "file": "posts/ai-subscription-guide-2026.md",
+    "tags": [
+      "AI",
+      "技术分享"
+    ]
+  },
+  {
     "id": "deepseek-v41-architecture",
     "title": "变形虫也能懂的 DS-V4.1 原理拆解！",
     "date": "2026-09-11",
