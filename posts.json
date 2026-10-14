@@ -1,5 +1,20 @@
 [
   {
+    "id": "pi_active_memory_blog",
+    "title": "给 Coding Agent 装上“主动记忆”：我是如何解决多轮对话里的健忘与矛盾的",
+    "date": "2026-10-14",
+    "summary": "在长会话和多轮任务中，Coding Agent 常常会因为上下文裁剪或多轮漂移而“遗忘”核心设计约束，甚至在需求迭代时精神分裂。本文分享我为 Pi Agent 开发的主动记忆（Active Memory）插件设计：双引擎时序消解、动态不变量前置注入与周期节流，并通过“坦克大战”到“雷电”两套完整街机复刻的真实 A/B 测试，聊聊它带来的实际改变。",
+    "cover": "posts/pi_active_memory_blog_cover.jpg",
+    "lang": "cn",
+    "file": "posts/pi_active_memory_blog.md",
+    "tags": [
+      "AI Agent",
+      "架构设计",
+      "开源工具",
+      "经验分享"
+    ]
+  },
+  {
     "id": "dream-rsi-in-depth",
     "title": "Dream-RSI 解读：不改一个权重，让 Agent 学会怎么找",
     "date": "2026-09-20",
