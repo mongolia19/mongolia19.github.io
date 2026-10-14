@@ -1,9 +1,9 @@
 [
   {
     "id": "pi_active_memory_blog",
-    "title": "给 Coding Agent 装上“主动记忆”：我是如何解决多轮对话里的健忘与矛盾的",
+    "title": "从 Meta Muse Wonder 的双杀战绩说起：给 Coding Agent 装上“主动记忆”的开源实战",
     "date": "2026-10-14",
-    "summary": "在长会话和多轮任务中，Coding Agent 常常会因为上下文裁剪或多轮漂移而“遗忘”核心设计约束，甚至在需求迭代时精神分裂。本文分享我为 Pi Agent 开发的主动记忆（Active Memory）插件设计：双引擎时序消解、动态不变量前置注入与周期节流，并通过“坦克大战”到“雷电”两套完整街机复刻的真实 A/B 测试，聊聊它带来的实际改变。",
+    "summary": "最近 Meta 正式发布 Muse Wonder Full，在 SWE-bench 等长程软件工程榜单上以大幅优势双杀 GPT 与 Claude，其技术报告中最核心的王牌就是 Active Memory（主动记忆）。本文结合作者为终端 Pi Agent 编写的开源主动记忆插件（MuseWonderMemory），深入剖析双引擎时序消解、动态不变量前置注入机制，并结合经典街机“坦克大战”与“雷电”两套连贯 A/B 盲测，分享长任务 Coding Agent 摆脱健忘与矛盾的工程实践。",
     "cover": "posts/pi_active_memory_blog_cover.jpg",
     "lang": "cn",
     "file": "posts/pi_active_memory_blog.md",
