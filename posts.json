@@ -1,5 +1,20 @@
 [
   {
+    "id": "weight-space-programming",
+    "title": "权重空间编程：大模型直接读写神经网络权重",
+    "date": "2026-11-10",
+    "summary": "MIT CSAIL 的新论文把神经网络权重当文本喂给 GPT-6 Astra，让它读懂网络在算什么、再直接改写权重，全程不用梯度。八个实验从 1.7 万参数的 MLP 做到 Qwen3.5-0.8B：改 0.016% 的权重，MATH-500 从 7.9% 到 48.1%，撞 token 上限的比例从 93% 降到 33%。",
+    "cover": "posts/weight-space-programming_cover.jpg",
+    "lang": "cn",
+    "file": "posts/weight-space-programming.md",
+    "tags": [
+      "AI",
+      "大模型",
+      "可解释性",
+      "论文解读"
+    ]
+  },
+  {
     "id": "pi_active_memory_blog",
     "title": "从 Meta Muse Wonder 的双杀战绩说起：给 Coding Agent 装上“主动记忆”的开源实战",
     "date": "2026-10-14",
