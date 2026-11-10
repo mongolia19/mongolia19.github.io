@@ -9,8 +9,6 @@ MIT CSAIL 在 11 月 2 日挂出一篇论文，标题是 *Sparks of Weight-Space
 
 作者是 Rikiya Takehi、Emily Teoh、Eric Zhang、Omar Khattab。用的模型是 GPT-6 Astra。论文里一共八个实验，从 1.7 万参数的小 MLP 一路做到 7.16 亿参数的字符级语言模型，最后改的是 Qwen3.5-0.8B。
 
-![封面](https://mongolia19.github.io/assets/weight-space-programming/cover-cartoon.png)
-
 ## 为什么这件事以前做不了
 
 训练神经网络本质是搜索。结构定下来，喂数据，让优化器把几十亿个数字往误差变小的方向推。推完模型能用了，但没人知道这些数字各自在干什么。可解释性研究做了这些年，能完整讲清的小回路也就那么几个。
