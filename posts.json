@@ -1,5 +1,21 @@
 [
   {
+    "id": "addy-agent-management-10-tips",
+    "title": "从码农到“AI经理”：Anthropic团队 Addy Osmani 管好 Coding Agent 的 10 条硬核法则",
+    "date": "2026-11-10",
+    "summary": "当 AI 能够瞬间生成数百行代码时，软件工程的核心瓶颈已转移至系统的审查、验证与架构裁决。Anthropic Claude Code 团队 Addy Osmani 总结 10 条硬核法则，带你从“人肉敲代码”转型为数字工程师团队的超级工程经理。",
+    "cover": "posts/addy-agent-management-10-tips_cover.jpg",
+    "lang": "cn",
+    "file": "posts/addy-agent-management-10-tips.md",
+    "tags": [
+      "ClaudeCode",
+      "AI编程",
+      "Agent管理",
+      "工程效能",
+      "Anthropic"
+    ]
+  },
+  {
     "id": "weight-space-programming",
     "title": "权重空间编程：大模型直接读写神经网络权重",
     "date": "2026-11-10",
